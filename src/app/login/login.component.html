@@ -1,0 +1,117 @@
+<br>
+<div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+		<div class="login-form">
+            
+            <!-- Sign IN-->
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">  
+                <div class="sign-in-htm">
+                    <!--CIN-->
+                    <div class="group">
+                        <label for="pass" class="label">Email Address</label>
+                        <input id="pass" type="text" class="input" name="email" formControlName="email">
+                    </div>
+                    <div *ngIf="theLoginForm.email.touched && theLoginForm.email.invalid">
+                        <b *ngIf="theLoginForm.email.errors?.required" class="text-danger">email is required</b>
+                        <b *ngIf="theLoginForm.email.errors?.email"  class="text-danger">Invalid email</b>
+                    </div>
+
+                    <!--PASSWORD-->
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
+                        <input id="pass2" type="password" class="input" data-type="password" name="password" formControlName="password">
+                    </div>
+                    <div *ngIf="theLoginForm.password.touched && theLoginForm.password.invalid">
+                        <b *ngIf="theLoginForm.password.errors?.required" class="text-danger">Password is required</b>
+                    </div>
+
+                    <!--Keep me Signed in-->
+                    <div class="group">
+                        <input id="check" type="checkbox" class="check" checked name="stayConnected" formControlName="stayConnected">
+                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign In" [disabled]="!loginForm.valid">
+                    </div>
+
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <a (click)="frgotPassword()">Forgot Password?</a>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Sign UP -->
+            <form [formGroup]="SignUpForm" (ngSubmit)="onSubmitSignUp()">  
+                <div class="sign-up-htm">
+                    <!--first name-->
+                    <div class="group">
+                        <label for="user" class="label">First Name</label>
+                        <input id="user3" type="text" class="input" name="firstName" formControlName="firstName">
+                    </div>
+                    <div *ngIf="theSignUpForm.firstName.touched && theSignUpForm.firstName.invalid">
+                        <b *ngIf="theSignUpForm.firstName.errors?.required" class="text-danger">First name is required</b>
+                    </div>
+                    <!--last name-->
+                    <div class="group">
+                        <label for="user" class="label">Last Name</label>
+                        <input id="user" type="text" class="input" name="lastName" formControlName="lastName">
+                    </div>
+                    <div *ngIf="theSignUpForm.lastName.touched && theSignUpForm.lastName.invalid">
+                        <b *ngIf="theSignUpForm.lastName.errors?.required" class="text-danger">Last name is required</b>
+                    </div>
+                    <!--CIN-->
+                    <div class="group">
+                        <label for="user" class="label">CIN</label>
+                        <input id="user2" type="number" class="input" name="cin" formControlName="cin">
+                    </div>
+                    <div *ngIf="theSignUpForm.cin.touched && theSignUpForm.cin.invalid">
+                        <b *ngIf="theSignUpForm.cin.errors?.max" class="text-danger">CIN is composed by 8 number</b>
+                        <b *ngIf="theSignUpForm.cin.errors?.required" class="text-danger">CIN is required</b>
+                    </div>
+                    <!--Email-->
+                    <div class="group">
+                        <label for="pass" class="label">Email Address</label>
+                        <input id="pass" type="text" class="input" name="email" formControlName="email">
+                    </div>
+                    <div *ngIf="theSignUpForm.email.touched && theSignUpForm.email.invalid">
+                        <b *ngIf="theSignUpForm.email.errors?.required" class="text-danger">email is required</b>
+                        <b *ngIf="theSignUpForm.email.errors?.email"  class="text-danger">Invalid email</b>
+                    </div>
+                    <!--PASSWORD-->
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
+                        <input id="pass" type="password" class="input" data-type="password" name="password" formControlName="password">
+                    </div>
+                    <div *ngIf="theSignUpForm.password.touched && theSignUpForm.password.invalid">
+                        <b *ngIf="theSignUpForm.password.errors?.required" class="text-danger">Password is required</b>
+                        <b *ngIf="theSignUpForm.password.errors?.pattern" class="text-danger">Password is not strong </b>
+                    </div>
+                    <div class="group">
+                        <mat-radio-group aria-label="Select an option" name="type" formControlName="type">
+                            <mat-radio-button value="1" style="color:blanchedalmond">Enseignent</mat-radio-button>
+                            <mat-radio-button value="2"  style="color:blanchedalmond" checked>Etudient</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign Up" [disabled]="!SignUpForm.valid">
+                    </div>
+                </div>
+            </form>
+
+            <ng-template #template id="myDialog">
+                <div class="modal-header">
+                   <h4 class="modal-title pull-left">Modal</h4>
+                   <button type="button" class="close pull-right" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                   </button>
+                </div>
+                <div class="alert alert-warning modal-body" role="alert">
+                    This is a warning alert with. Give it a click if you like.
+                </div>
+             </ng-template>
+		</div>
+	</div>
+</div>

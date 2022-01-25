@@ -1,0 +1,51 @@
+<div class="search d-flex justify-content-center col-md-6 col-md-offset-3">
+    <input type="text" [(ngModel)]="term" class="searchTerm form-control" placeholder="Search..." aria-label="Search">
+</div>
+<h1 class="text-xl font-weight-bold">Enseignants Chercheurs</h1>
+<div class="container">
+    <div class="row">
+		<div *ngFor = "let m of profs | filter:term" class="col-md-4">
+                <div class="profile-card-4 text-center">
+                    <a [routerLink]="['/Member/Detail']" [queryParams]="{ id: m.id }" style="text-decoration: none;">
+                        <img src="./assets/images/Avatar-11.png" class="img img-responsive" width="150px" height="220px">
+                    </a>
+                    <div class="profile-content">
+                        <div class="profile-description">
+                            <h3>{{m.prenom}} {{m.nom}}</h3><h3>{{m.email}}</h3>
+                            <button *ngIf="isAdmin" type="button" class="btn btn-success" routerLink="/Member/Update" [queryParams]="{ id: m.id }">Update</button>
+                            <button *ngIf="isAdmin" type="button" class="btn btn-danger" (click)="deleteMember(m.id)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+</div>
+<div *ngIf="!noProf" class="alert alert-danger" role="alert">
+    Aucun enseignants n'est trouvé!
+</div>
+
+<h1 class="text-xl">Etudiants</h1>
+<div class="container">
+    <div class="row">
+		<div *ngFor = "let m of students | filter:term " class="col-md-4">  
+            <div class="profile-card-4 text-center">
+                <a [routerLink]="['/Member/Detail']" [queryParams]="{ id: m.id }" style="text-decoration: none;">
+                    <img *ngIf="m.photo!==null" [src]="getSantizeUrl('data:image/jpeg;base64,'+m.photo)" class="img img-responsive" width="150px" height="220px">
+                    <img *ngIf="m.photo===null" src="./assets/images/Avatar-11.png" class="img img-responsive" width="150px" height="220px">
+                </a>
+                <div class="profile-content">
+                    <div class="profile-name"></div>
+                        <div class="profile-description">
+                            <h3>{{m.prenom}} {{m.nom}}</h3><br><h3>{{m.email}}</h3>
+                            <button *ngIf="isAdmin" type="button" class="btn btn-success" routerLink="/Member/Update" [queryParams]="{ id: m.id }">Update</button>
+                            <button *ngIf="isAdmin" type="button" class="btn btn-danger" (click)="deleteMember(m.id)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!noStudent" class="alert alert-danger" role="alert">
+    Aucun etudiant n'est trouve
+</div>

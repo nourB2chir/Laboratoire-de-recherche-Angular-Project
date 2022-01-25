@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+
+<h1 class="text-xl font-weight-bold">Evenements</h1>
+<div class="search d-flex justify-content-center col-md-6 col-md-offset-3">
+  <input type="text" [(ngModel)]="term" class="searchTerm form-control" placeholder="Search..." aria-label="Search">
+</div>
+ <table class="table ">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Lieu</th>
+      <th scope="col">Date</th>
+      <th scope="col"></th>
+      <!--<th scope="col"></th>-->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let e of events  | filter:term">
+      <th scope="row">{{e.id}}</th>
+      <td>{{e.titre}}</td>
+      <td>{{e.lieu}}</td>
+      <td>{{reformDate(e.date)}}</td>
+      <td><button *ngIf="isAdmin" type="button" class="btn btn-danger" (click)="deleteEvent(e.id)">Delete</button></td>
+    </tr>
+</table>

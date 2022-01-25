@@ -1,0 +1,71 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Navbar brand -->
+        <a class="navbar-brand mt-2 mt-lg-0" [routerLink]="">
+          <img src="https://www.jeuneafrique.com/medias/2018/02/26/enis.png" height="35" alt="ENIS" loading="lazy"/>
+        </a>
+        <!-- Left links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="">Members</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/publications">Publications</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/events">Evenements</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/tools">Outils</a>
+          </li>
+        </ul>
+        <!-- Left links -->
+      </div>
+      <!-- Collapsible wrapper -->
+  
+      <!-- Right elements -->
+      <div *ngIf="isConnected" class="d-flex align-items-centre dropdown" dropdown>   
+        <!-- Avatar -->
+        <a dropdownToggle class="dropdown-toggle d-flex align-items-center hidden-arrow" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+          <img [src]="imagePath" class="rounded-circle" height="25" alt="photo de profile" loading="lazy"/>
+        </a>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" routerLink="/Member/Detail" [queryParams]="{ id: userId }">My profile</a></li>
+          <li><a type="button" class="dropdown-item" (click)="logOut()">Logout</a></li>
+        </ul>
+      </div>
+      <ul  *ngIf="isConnected" class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link disabled">{{Name}}</a>
+        </li>
+
+        <!--if admin is connected-->
+      </ul>
+      <div *ngIf="isAdmin" class="d-flex align-items-centre dropdown" dropdown>   
+        <!-- Avatar -->
+        <a dropdownToggle class="dropdown-toggle d-flex align-items-center hidden-arrow" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+          <img src="./assets/images/Avatar-11.png" class="rounded-circle" height="25" alt="photo de profile" loading="lazy"/>
+        </a>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarDropdownMenuLink">
+          <li><a type="button" class="dropdown-item" (click)="logOut()">Logout</a></li>
+        </ul>
+      </div>
+      <ul  *ngIf="isAdmin" class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link disabled">{{admin}}</a>
+        </li>
+      </ul>
+      <div *ngIf="!isConnected && !isAdmin" class="d-flex align-items-centre">
+        <p class="nav-item">
+            <a type="button" class="btn btn-secondary" routerLink="/login">Login</a>
+        </p>
+      </div>
+      <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->

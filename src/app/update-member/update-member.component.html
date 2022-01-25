@@ -1,0 +1,115 @@
+<app-navbar></app-navbar>
+<br>
+<div class="container" style="background-color:powderblue;">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                      <img [src]="imagePath"  class="rounded-circle" width="150">
+                      <div class="mt-3">
+                        <h4>{{currentUser.prenom}} {{currentUser.nom}}</h4>
+                        <p class="text-secondary mb-1">{{currentUser.grade}}</p>
+                        <p class="text-secondary mb-1">{{currentUser.diplome}}</p>
+                        <p class="text-muted font-size-sm">{{currentUser.etablissement}}</p>
+                        <div class="form-group">
+                            <label for="file">Choose File</label>
+                            <input type="file" (change)="onFileChanges($event)" />
+                            <input type="button" (click)="onUpload()" value="Save">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+              </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <form [formGroup]="updateMemberForm" (ngSubmit)="updateMember()"> 
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Nom</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="firstName" formControlName="firstName">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Prenom</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="lastName" formControlName="lastName">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="email" formControlName="email">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">CIN</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="cin" formControlName="cin">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Date de Naissance</h6>
+                                </div>
+                                <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
+                                    <input type="text" class="form-control" name="dateNaissance" formControlName="dateNaissance" #dp="bsDatepicker" bsDatepicker [bsValue]="currentUser.dateNaissance" [bsConfig]="{ adaptivePosition: true }">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">CV</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="cv" formControlName="cv">
+                                </div>
+                            </div>
+                            <div *ngIf="!isStudent" class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Grade</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="grade" formControlName="grade">
+                                </div>
+                            </div>
+                            <div *ngIf="!isStudent" class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Etablissement</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="etablissement" formControlName="etablissement">
+                                </div>
+                            </div>
+                            <div *ngIf="isStudent" class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Diplome</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" name="diplome" formControlName="diplome">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="submit" class="btn btn-primary px-4" value="Save Changes">
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                </div>        
+            </div>
+        </div>
+    </div>
+</div>  

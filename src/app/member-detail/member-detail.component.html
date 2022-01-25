@@ -1,0 +1,292 @@
+<app-navbar></app-navbar>
+<br>
+<div class="container" style="background-color:powderblue;">
+    <div class="main-body">
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img [src]="imagePath" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                      <h4>{{currentUser.prenom + " " + currentUser.nom}}</h4>
+                      <p *ngIf="!isStudent" class="text-secondary mb-1">{{currentUser.grade}}</p>
+                      <p *ngIf="isStudent" class="text-secondary mb-1">{{currentUser.diplome}}</p>
+                      <p *ngIf="!isStudent" class="text-muted font-size-sm">{{currentUser.etablissement}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+       <!--
+              <div class="row gutters-sm">
+                <div class="col-sm-12 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
+                      <small>Web Design</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <small>Website Markup</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <small>One Page</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <small>Mobile Template</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <small>Backend API</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            -->
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Nom et Prenom</h6></div>
+                    <div class="col-sm-9 text-secondary">{{currentUser.prenom + " " + currentUser.nom}}</div>
+                  </div>
+                  <hr>
+                  <div class="row"><div class="col-sm-3"><h6 class="mb-0">Email</h6></div>
+                  <div class="col-sm-9 text-secondary">{{currentUser.email}}</div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">CIN</h6></div>
+                    <div class="col-sm-9 text-secondary">{{currentUser.cin}}</div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Date de Naissance</h6></div>
+                    <div class="col-sm-9 text-secondary">{{currentUser.dateNaissance}}</div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Curriculum Vitæ</h6></div>
+                    <div class="col-sm-9 text-secondary"><a href="{{currentUser.cv}}" target="_blank" ><mat-icon class="gray-icon">picture_as_pdf</mat-icon></a></div>
+                  </div>
+                  <hr>
+                  <div class="row"  *ngIf="isStudent">
+                    <div class="col-sm-3"><h6 class="mb-0">Encadrant</h6></div>
+                    <div *ngIf="hasNotEncadrant" class="col-sm-9 text-secondary">{{currentUser.encadrant.prenom}} {{currentUser.encadrant.nom}}</div>
+                    <div *ngIf="!hasNotEncadrant" class="col-sm-9 text-secondary">
+                      <div *ngIf="connectedUserId == thisId"  class="col-sm-12">
+                        <div (click)="openModal(modalTemplate4)"><mat-icon>add_circle</mat-icon></div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr  *ngIf="isStudent">
+                  <div class="row" *ngIf="!isStudent">
+                    <div class="col-sm-3"><h6 class="mb-0">Grade</h6></div>
+                    <div class="col-sm-9 text-secondary">{{currentUser.grade}}</div>
+                  </div>
+                  <hr *ngIf="!isStudent">
+                  <div class="row" *ngIf="!isStudent">
+                    <div class="col-sm-3"><h6 class="mb-0">Etablissement</h6></div>
+                    <div class="col-sm-9 text-secondary">{{currentUser.etablissement}}</div>
+                  </div>
+                  <hr *ngIf="!isStudent">
+                  <div class="row" *ngIf="isStudent">
+                    <div class="col-sm-3"><h6 class="mb-0">Diplome</h6></div>
+                    <div class="col-sm-9 text-secondary">{{currentUser.diplome}}</div>
+                  </div>
+                  <hr *ngIf="isStudent">
+                  <div class="row">
+                    <div *ngIf="connectedUserId == thisId"  class="col-sm-12">
+                      <a type="button" class="btn btn-primary" routerLink="/Member/Update" [queryParams]="{ id: connectedUserId }">Modifier</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <!--PUBLICATIONS-->
+              <div class="row gutters-sm">
+                <div class="col-sm-4 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Publications</h6>
+                      <ul *ngFor="let p of currentUser.pubs">
+                        <li><p><strong>{{p.type}}</strong>: {{ p.titre}}</p></li>
+                      </ul> 
+                      <div *ngIf="connectedUserId == thisId"  class="col-sm-12">
+                        <button type="button" class="btn btn-success" (click)="openModal(modalTemplate1)">Ajouter</button>
+                      </div>    
+                    </div>
+                  </div>
+                </div>
+                <!--EVENEMENTS-->
+                <div class="col-sm-4 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Evenements</h6>
+                      <ul *ngFor="let p of currentUser.evenements">
+                        <li><p><strong>{{p.lieu}}</strong>: {{p.titre}}</p></li>
+                      </ul> 
+                      <div *ngIf="connectedUserId == thisId"  class="col-sm-12">
+                        <button type="button" class="btn btn-success" (click)="openModal(modalTemplate2)">Ajouter</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--OUTILS-->
+                <div class="col-sm-4 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Outils</h6>
+                        <ul *ngFor="let o of currentUser.outils">
+                          <li>{{ o.source}}</li>
+                        </ul>
+                        <div *ngIf="connectedUserId == thisId"  class="col-sm-12">
+                          <button type="button" class="btn btn-success" (click)="openModal(modalTemplate3)">Ajouter</button>
+                        </div> 
+                      </div>
+                    </div>
+                  </div>               
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <ng-template #modalTemplate1>
+      <button type="button" class="btn-close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> 
+      <div class="container forget-password">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-center">
+                          <mat-icon>description</mat-icon>
+                            <h2 class="text-center">Ajouter une publication</h2>
+                            <form [formGroup]="addPubForm" (ngSubmit)="addPub()" id="register-form" role="form" autocomplete="off" class="form">           
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                        <input id="forgetAnswer" placeholder="titre" class="form-control"  type="text" name="titre" formControlName="titre">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                  <div class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                      <input id="forgetAnswer" placeholder="type" class="form-control"  type="text" name="type" formControlName="type">
+                                  </div>
+                              </div>
+                                <div class="form-group">
+                                    <input name="btnForget" class="btn btn-lg btn-success btn-block btnForget" value="Ajouter" type="submit" style="margin-top:7px; margin-bottom:7px">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </ng-template>
+
+    <ng-template #modalTemplate2>
+      <button type="button" class="btn-close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> 
+      <div class="container forget-password">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-center">
+                          <mat-icon>event_note</mat-icon>
+                            <h2 class="text-center">Ajouter un Evenement</h2>
+                            <form [formGroup]="addEventForm" (ngSubmit)="addEvent()" id="register-form" role="form" autocomplete="off" class="form">           
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                        <input id="forgetAnswer" name="" placeholder="titre" class="form-control"  type="text" name="titre" formControlName="titre">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                  <div class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                      <input id="forgetAnswer" name="" placeholder="lieu" class="form-control"  type="text" name="lieu" formControlName="lieu">
+                                  </div>
+                              </div>
+                                <div class="form-group">
+                                    <input name="btnForget" class="btn btn-lg btn-success btn-block btnForget" value="Ajouter" type="submit" style="margin-top:7px; margin-bottom:7px">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </ng-template>
+    <ng-template #modalTemplate3>
+      <button type="button" class="btn-close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> 
+      <div class="container forget-password">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-center">
+                          <mat-icon>card_travel</mat-icon>
+                            <h2 class="text-center">Ajouter un outil</h2>
+                            <form [formGroup]="addToolForm" (ngSubmit)="addTool()" id="register-form" role="form" autocomplete="off" class="form">           
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                        <input id="forgetAnswer" name="" placeholder="source" class="form-control"  type="text" name="source" formControlName="source">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input name="btnForget" class="btn btn-lg btn-success btn-block btnForget" value="Ajouter" type="submit" style="margin-top:7px; margin-bottom:7px">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </ng-template>
+
+    <ng-template #modalTemplate4>
+      <button type="button" class="btn-close pull-right" aria-label="Close" (click)="modalRef.hide()"></button> 
+      <div class="container forget-password">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-center">
+                          <mat-icon>account_circle</mat-icon>
+                            <h2 class="text-center">Ajouter un Encadrant</h2>
+                            <form [formGroup]="addEncadrantForm" (ngSubmit)="addEncadrantToStudent()" id="register-form" role="form" autocomplete="off" class="form">           
+                                <div class="form-group">
+                                    <div class="input-group">
+                                      <div class="custom-select" style="width:200px;">
+                                        <select formControlName="encadrant" name="encadrant">
+                                          <option *ngFor="let t of teachers" [ngValue]="t['id']">{{t['nom']}} {{t['prenom']}}</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input name="btnForget" class="btn btn-lg btn-success btn-block btnForget" value="Ajouter" type="submit" style="margin-top:7px; margin-bottom:7px">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </ng-template>
