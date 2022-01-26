@@ -80,13 +80,22 @@
                   <hr>
                   <div class="row"  *ngIf="isStudent">
                     <div class="col-sm-3"><h6 class="mb-0">Encadrant</h6></div>
-                    <div *ngIf="hasNotEncadrant" class="col-sm-9 text-secondary">{{currentUser.encadrant.prenom}} {{currentUser.encadrant.nom}}</div>
+                    <div *ngIf="hasNotEncadrant" class="col-sm-9 text-secondary">
+                      <p>{{currentUser.encadrant.prenom}} {{currentUser.encadrant.nom}}</p>
+                      <div *ngIf="thisIsAdmin"  class="col-sm-12">
+                        <div (click)="openModal(modalTemplate4)"><mat-icon>add_circle</mat-icon></div>
+                      </div>
+                    </div>
                     <div *ngIf="!hasNotEncadrant" class="col-sm-9 text-secondary">
                       <div *ngIf="connectedUserId == thisId"  class="col-sm-12">
                         <div (click)="openModal(modalTemplate4)"><mat-icon>add_circle</mat-icon></div>
                       </div>
-                    </div>
+                      <div *ngIf="thisIsAdmin"  class="col-sm-12">
+                        <div (click)="openModal(modalTemplate4)"><mat-icon>add_circle</mat-icon></div>
+                      </div>
+                    </div>      
                   </div>
+
                   <hr  *ngIf="isStudent">
                   <div class="row" *ngIf="!isStudent">
                     <div class="col-sm-3"><h6 class="mb-0">Grade</h6></div>
@@ -110,8 +119,9 @@
                   </div>
                 </div>
               </div>
-                <!--PUBLICATIONS-->
+                
               <div class="row gutters-sm">
+                <!--PUBLICATIONS-->
                 <div class="col-sm-4 mb-3">
                   <div class="card h-100">
                     <div class="card-body">

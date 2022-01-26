@@ -106,13 +106,11 @@ export class MemberService {
     const params = new HttpParams()
             .set('idetd', idetd)
             .set('idens', idens);
-
-    return this.http.put<any>(
-      "http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant" ,
+    return this.http.put<any>("http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant" ,
       null,
       {
         params: params
-      })
+      }).subscribe(()=>location.reload())
   }
 
   affectPublicationToMember(memberId:string, publicationId:string){

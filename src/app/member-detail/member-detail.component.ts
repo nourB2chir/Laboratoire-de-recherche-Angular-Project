@@ -17,7 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class MemberDetailComponent implements OnInit {
 
-  thisId:string | undefined;
+  thisId:any;
   currentUser : any;
   connectedUserId: any;
   modalRef!: BsModalRef;
@@ -25,6 +25,7 @@ export class MemberDetailComponent implements OnInit {
   hasNotEncadrant = true;
   teachers = [];
   imagePath:any;
+  thisIsAdmin = false;
 
   addPubForm: FormGroup = new FormGroup({
     titre : new FormControl(''),
@@ -59,6 +60,13 @@ export class MemberDetailComponent implements OnInit {
           },error =>{
             console.log(error)
           })
+      }else if(this.cookieService.check('admin')){
+        this.thisIsAdmin = true;
+        this.memberService.getAllProf().subscribe(
+          result=>{
+            this.teachers = result
+          },
+          error =>{})
       }
 
       if(this.thisId != null){
@@ -168,12 +176,7 @@ export class MemberDetailComponent implements OnInit {
   
   addEncadrantToStudent(){
     console.log(this.addEncadrantForm.value.encadrant)
-    this.memberService.affectEncadrantToStudent(this.connectedUserId ,this.addEncadrantForm.value.encadrant).subscribe( 
-      result=>{},
-      error =>{
-        console.log(error)
-    });
-
+    this.memberService.affectEncadrantToStudent(this.thisId ,this.addEncadrantForm.value.encadrant);
   }
 
   get theAddEncadrantForm(){
